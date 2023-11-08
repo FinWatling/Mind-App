@@ -1,8 +1,13 @@
 import './App.css';
+import MainHero from './MainHero';
+import { MoodRating } from './MoodRating';
 
 function App() {
   return (
-    <h1 class="title-text">Hello World!</h1>
+    <div className="main-content">
+   <MainHero/>
+   <MoodRating/>
+   </div>
   );
 }
 
