@@ -4,7 +4,7 @@
 
 @layer components {
   .main-content {
-    @apply bg-gray-900 h-screen w-screen;
+    @apply bg-gray-800 h-screen w-screen;
   }
   .hero {
     @apply text-8xl text-center content-center text-slate-400 drop-shadow-lg font-mono;
