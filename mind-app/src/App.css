@@ -2,22 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
+@layer components {
+  .main-content {
+    @apply bg-gray-900 h-screen w-screen;
+  }
+  .hero {
+    @apply text-8xl text-center content-center text-slate-400 drop-shadow-lg font-mono;
+  }
 
-    .main-content{
-        @apply bg-gray-900 h-screen w-screen;
-    }
-    .hero{
-        @apply text-8xl text-center text-slate-400 drop-shadow-lg font-mono
-    }
+  .radio-buttons {
+    @apply text-8xl text-center text-black drop-shadow-lg font-mono h-14 w-16;
+  }
 
-    .radio-buttons{
-        @apply text-8xl text-center text-black drop-shadow-lg font-mono h-14 w-16
-    }
-
-    .submit-button{
-        @apply bg-transparent hover:bg-gray-900 text-gray-900 font-semibold hover:text-white py-2 px-4 border hover:border-transparent rounded
-    }
-
-
+  .submit-button {
+    @apply bg-transparent hover:bg-gray-900 text-gray-900 font-semibold hover:text-white py-2 px-4 border hover:border-transparent rounded;
+  }
 }

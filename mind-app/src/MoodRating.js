@@ -2,11 +2,11 @@ import React from "react";
 import { useState } from "react";
 
 export const MoodRating = () => {
-  const [checkedValue, setCheckedValue] = useState();
+  const [moodSelection, setMoodSelection] = useState("1");
 
-  const handleClick = (value) => {
-    setCheckedValue(value);
-    console.log(value);
+  const onMoodChange = (e) => {
+    setMoodSelection(e.target.value);
+    console.log(e.target.value);
   };
 
   return (
@@ -14,7 +14,7 @@ export const MoodRating = () => {
       <form>
         <h1 className="text-4xl drop-shadow-sm">Mood rating for today:</h1>
         <input
-          onClick={() => handleClick(1)}
+          onChange={onMoodChange}
           className="radio-buttons"
           type="radio"
           value="1"
@@ -25,7 +25,7 @@ export const MoodRating = () => {
           1
         </label>
         <input
-          onClick={() => handleClick(2)}
+          onChange={onMoodChange}
           className="radio-buttons"
           type="radio"
           value="2"
@@ -36,7 +36,7 @@ export const MoodRating = () => {
           2
         </label>
         <input
-          onClick={() => handleClick(3)}
+          onChange={onMoodChange}
           className="radio-buttons"
           type="radio"
           value="3"
@@ -47,7 +47,7 @@ export const MoodRating = () => {
           3
         </label>
         <input
-          onClick={() => handleClick(4)}
+          onChange={onMoodChange}
           className="radio-buttons"
           type="radio"
           value="4"
@@ -58,7 +58,7 @@ export const MoodRating = () => {
           4
         </label>
         <input
-          onClick={() => handleClick(5)}
+          onChange={onMoodChange}
           className="radio-buttons"
           type="radio"
           value="5"
@@ -69,7 +69,7 @@ export const MoodRating = () => {
           5
         </label>
         <input
-          onClick={() => handleClick(6)}
+          onChange={onMoodChange}
           className="radio-buttons"
           type="radio"
           value="6"
@@ -80,7 +80,7 @@ export const MoodRating = () => {
           6
         </label>
         <input
-          onClick={() => handleClick(7)}
+          onChange={onMoodChange}
           className="radio-buttons"
           type="radio"
           value="7"
@@ -91,7 +91,7 @@ export const MoodRating = () => {
           7
         </label>
         <input
-          onClick={() => handleClick(8)}
+          onChange={onMoodChange}
           className="radio-buttons"
           type="radio"
           value="8"
@@ -102,7 +102,7 @@ export const MoodRating = () => {
           8
         </label>
         <input
-          onClick={() => handleClick(9)}
+          onChange={onMoodChange}
           className="radio-buttons"
           type="radio"
           value="9"
@@ -113,7 +113,7 @@ export const MoodRating = () => {
           9
         </label>
         <input
-          onClick={() => handleClick(10)}
+          onChange={onMoodChange}
           className="radio-buttons"
           type="radio"
           value="10"
@@ -123,7 +123,6 @@ export const MoodRating = () => {
         <label className="radio-buttons" htmlFor="10">
           10
         </label>
-
         <h1>Mood comment for today:</h1>
         <textarea
           className="border-solid border-2 border-black "
