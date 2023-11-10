@@ -4,7 +4,10 @@ import { useState } from "react";
 export const MoodRating = () => {
   const [moodSelection, setMoodSelection] = useState(1);
   const [moodNotes, setMoodNotes] = useState("");
-  const [moodEntry, setMoodEntry] = useState(null);
+  const [moodEntries, setMoodEntries] = useState([]);
+  const [currentLat, setCurrentLat] = useState(null);
+  const [currentLon, setCurrentLon] = useState(null);
+  const [currentWeather, setCurrentWeather] = useState(null);
 
   const onMoodChange = (e) => {
     setMoodSelection(e.target.value);
@@ -26,12 +29,71 @@ export const MoodRating = () => {
     return date + " " + time;
   }
 
+  function getCurrentWeather() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      console.log(
+        "Unable to retrieve geolocation data, does your browser support it?"
+      );
+    }
+
+    const API_KEY = "f961d88f5421dff04a4fbbcadfdc14ba";
+
+    let call =
+      "https://api.openweathermap.org/data/3.0/onecall?lat=" +
+      currentLat +
+      "&lon=" +
+      currentLon +
+      "&appid=" +
+      API_KEY;
+
+    fetch(call)
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrentWeather(data);
+      })
+      .catch((error) => console.log(error));
+  }
+
+  function success(position) {
+    setCurrentLat(position.coords.latitude);
+    setCurrentLon(position.coords.longitude);
+  }
+
+  function error() {
+    console.log("Unable to retrieve your location.");
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
+    try {
+      getCurrentWeather();
+    } catch {
+      console.error(error);
+    }
 
-    console.log(getCurrentDateTime());
-    console.log(moodNotes);
-    console.log(moodSelection);
+    const currentTempCelcius =
+      currentWeather === null ? 0 : currentWeather?.current?.temp - 273.15;
+    const currentWeatherDescription =
+      currentWeather === null || ""
+        ? ""
+        : currentWeather.current.weather[0].description;
+
+    const moodEntry = {
+      moodrating: moodSelection,
+      moodnotes: moodNotes,
+      datetime: getCurrentDateTime(),
+      currentweather: {
+        currenttemp: currentTempCelcius,
+        currentWeatherDescription: currentWeatherDescription,
+      },
+    };
+
+    setMoodEntries((moodEntries) => [...moodEntries, moodEntry]);
+    console.log(moodEntries);
+
+    //localStorage.setItem("MoodEntries", JSON.stringify(moodEntry));
   };
 
   return (
