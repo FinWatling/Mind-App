@@ -8,7 +8,6 @@ function App() {
     <div className="main-content">
       <MainHero />
       <MoodRating />
-      <MoodEntryList />
     </div>
   );
 }

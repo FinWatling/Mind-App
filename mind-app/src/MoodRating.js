@@ -5,8 +5,8 @@ export const MoodRating = () => {
   const [moodSelection, setMoodSelection] = useState(1);
   const [moodNotes, setMoodNotes] = useState("");
   const [moodEntries, setMoodEntries] = useState([]);
-  const [currentLat, setCurrentLat] = useState(null);
-  const [currentLon, setCurrentLon] = useState(null);
+  const [currentLat, setCurrentLat] = useState(0);
+  const [currentLon, setCurrentLon] = useState(0);
   const [currentWeather, setCurrentWeather] = useState(null);
 
   const onMoodChange = (e) => {
@@ -19,7 +19,12 @@ export const MoodRating = () => {
 
   function getCurrentDateTime() {
     const dateTime = new Date();
-    let time = dateTime.getHours() + ":" + dateTime.getMinutes();
+    let time =
+      dateTime.getHours() +
+      ":" +
+      dateTime.getMinutes() +
+      ":" +
+      dateTime.getMilliseconds();
     let date =
       dateTime.getDate() +
       "/" +
@@ -31,7 +36,9 @@ export const MoodRating = () => {
 
   function getCurrentWeather() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, error);
+      navigator.geolocation.getCurrentPosition(success, error, {
+        timeout: 10000,
+      });
     } else {
       console.log(
         "Unable to retrieve geolocation data, does your browser support it?"
@@ -67,18 +74,15 @@ export const MoodRating = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    try {
-      getCurrentWeather();
-    } catch {
-      console.error(error);
-    }
+
+    getCurrentWeather();
 
     const currentTempCelcius =
       currentWeather === null ? 0 : currentWeather?.current?.temp - 273.15;
     const currentWeatherDescription =
-      currentWeather === null || ""
-        ? ""
-        : currentWeather.current.weather[0].description;
+      currentWeather === null
+        ? "No Location Data"
+        : currentWeather?.current?.weather[0]?.description;
 
     const moodEntry = {
       moodrating: moodSelection,
@@ -91,9 +95,7 @@ export const MoodRating = () => {
     };
 
     setMoodEntries((moodEntries) => [...moodEntries, moodEntry]);
-    console.log(moodEntries);
-
-    //localStorage.setItem("MoodEntries", JSON.stringify(moodEntry));
+    localStorage.setItem("MoodEntries", JSON.stringify(moodEntries));
   };
 
   return (
