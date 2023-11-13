@@ -9,6 +9,14 @@ export const MoodRating = () => {
   const [currentLon, setCurrentLon] = useState(0);
   const [currentWeather, setCurrentWeather] = useState(null);
 
+  useEffect(() => {
+    localStorage.setItem("MoodEntries", JSON.stringify(moodEntries));
+  }, [moodEntries]);
+
+  useEffect(() => {
+    getCurrentWeather();
+  }, [moodEntries]);
+
   const onMoodChange = (e) => {
     setMoodSelection(e.target.value);
   };
@@ -72,14 +80,8 @@ export const MoodRating = () => {
     console.log("Unable to retrieve your location.");
   }
 
-  useEffect(() => {
-    localStorage.setItem("MoodEntries", JSON.stringify(moodEntries));
-  }, [moodEntries]);
-
   function onSubmit(e) {
     e.preventDefault();
-
-    getCurrentWeather();
 
     const currentTempCelcius =
       currentWeather === null ? 0 : currentWeather?.current?.temp - 273.15;
