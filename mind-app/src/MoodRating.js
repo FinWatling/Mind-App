@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const MoodRating = () => {
   const [moodSelection, setMoodSelection] = useState(1);
@@ -72,7 +72,11 @@ export const MoodRating = () => {
     console.log("Unable to retrieve your location.");
   }
 
-  const onSubmit = (e) => {
+  useEffect(() => {
+    localStorage.setItem("MoodEntries", JSON.stringify(moodEntries));
+  }, [moodEntries]);
+
+  function onSubmit(e) {
     e.preventDefault();
 
     getCurrentWeather();
@@ -95,8 +99,7 @@ export const MoodRating = () => {
     };
 
     setMoodEntries((moodEntries) => [...moodEntries, moodEntry]);
-    localStorage.setItem("MoodEntries", JSON.stringify(moodEntries));
-  };
+  }
 
   return (
     <div className=" pb-4 max-w-screen text-center content-center bg-slate-300 wp">
