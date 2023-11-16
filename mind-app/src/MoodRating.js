@@ -1,16 +1,22 @@
 import React from "react";
 import { Weather } from "./Weather";
 import { useState, useEffect } from "react";
+import { Encryption } from "./Encryption";
 
 export const MoodRating = () => {
   const [moodSelection, setMoodSelection] = useState(1);
   const [moodNotes, setMoodNotes] = useState("");
+  const [password, setPassword] = useState("");
   const [moodEntries, setMoodEntries] = useState([]);
 
   const { currentWeather, getCurrentWeather } = Weather();
+  const { encrypt, decrypt } = Encryption();
 
   useEffect(() => {
-    localStorage.setItem("MoodEntries", JSON.stringify(moodEntries));
+    localStorage.setItem(
+      "MoodEntries",
+      encrypt(JSON.stringify(moodEntries), password)
+    );
   }, [moodEntries]);
 
   useEffect(() => {
@@ -23,6 +29,10 @@ export const MoodRating = () => {
 
   const onMoodNotesChange = (e) => {
     setMoodNotes(e.target.value);
+  };
+
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   function getCurrentDateTime() {
@@ -187,6 +197,15 @@ export const MoodRating = () => {
           className="border-solid border-2 border-black w-1/2 h-auto"
           placeholder="How are you feeling?"
         ></textarea>
+        <br></br>
+        <label className="" htmlFor="password">
+          Password:
+        </label>
+        <input
+          onchange={onPasswordChange}
+          type="password"
+          id="password"
+        ></input>
         <br></br>
         <button onClick={onSubmit} className="submit-button">
           Submit

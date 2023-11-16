@@ -4,10 +4,10 @@ import { SetPin } from "./SetPin";
 import { MoodRating } from "./MoodRating";
 
 function App() {
-  let verifiedUser = localStorage.getItem("password") == null ? false : true;
+  let loggedIn = localStorage.getItem("loggedin") == "true" ? true : false;
   let content;
 
-  if (verifiedUser) {
+  if (loggedIn) {
     content = (
       <div className="main-content">
         <MainHero />

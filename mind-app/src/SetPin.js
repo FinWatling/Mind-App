@@ -1,13 +1,20 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
+import { Encryption } from "./Encryption";
 
 export const SetPin = () => {
+  const { encrypt, decrypt } = Encryption();
+
   const [password, setPassword] = useState(null);
 
   function onSubmit(e) {
     e.preventDefault();
     console.log(password);
-    localStorage.setItem("password", password);
+    localStorage.setItem("loggedin", true);
     window.location.reload(true);
+  }
+
+  function getPassword() {
+    return password;
   }
 
   return (
@@ -34,3 +41,6 @@ export const SetPin = () => {
     </div>
   );
 };
+
+// Export the getPassword function
+export const getPassword = SetPin.getPassword;
