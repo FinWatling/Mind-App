@@ -1,13 +1,13 @@
 import React from "react";
+import { Weather } from "./Weather";
 import { useState, useEffect } from "react";
 
 export const MoodRating = () => {
   const [moodSelection, setMoodSelection] = useState(1);
   const [moodNotes, setMoodNotes] = useState("");
   const [moodEntries, setMoodEntries] = useState([]);
-  const [currentLat, setCurrentLat] = useState(0);
-  const [currentLon, setCurrentLon] = useState(0);
-  const [currentWeather, setCurrentWeather] = useState(null);
+
+  const { currentWeather, getCurrentWeather } = Weather();
 
   useEffect(() => {
     localStorage.setItem("MoodEntries", JSON.stringify(moodEntries));
@@ -40,44 +40,6 @@ export const MoodRating = () => {
       "/" +
       dateTime.getFullYear();
     return date + " " + time;
-  }
-
-  function getCurrentWeather() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, error, {
-        timeout: 10000,
-      });
-    } else {
-      console.log(
-        "Unable to retrieve geolocation data, does your browser support it?"
-      );
-    }
-
-    const API_KEY = "f961d88f5421dff04a4fbbcadfdc14ba";
-
-    let call =
-      "https://api.openweathermap.org/data/3.0/onecall?lat=" +
-      currentLat +
-      "&lon=" +
-      currentLon +
-      "&appid=" +
-      API_KEY;
-
-    fetch(call)
-      .then((response) => response.json())
-      .then((data) => {
-        setCurrentWeather(data);
-      })
-      .catch((error) => console.log(error));
-  }
-
-  function success(position) {
-    setCurrentLat(position.coords.latitude);
-    setCurrentLon(position.coords.longitude);
-  }
-
-  function error() {
-    console.log("Unable to retrieve your location.");
   }
 
   function onSubmit(e) {
