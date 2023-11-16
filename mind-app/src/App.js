@@ -4,7 +4,7 @@ import { SetPin } from "./SetPin";
 import { MoodRating } from "./MoodRating";
 
 function App() {
-  let verifiedUser = false;
+  let verifiedUser = localStorage.getItem("password") == null ? false : true;
   let content;
 
   if (verifiedUser) {
