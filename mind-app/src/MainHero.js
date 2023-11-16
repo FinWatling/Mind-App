@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import logo from "./img/brainlogo.png";
 
-export default class MainHero extends Component {
+export class MainHero extends Component {
   render() {
     return (
       <div className="hero">

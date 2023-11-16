@@ -37,11 +37,6 @@ export const Weather = () => {
     }
   }
 
-  function success(position) {
-    setCurrentLat(position.coords.latitude);
-    setCurrentLon(position.coords.longitude);
-  }
-
   function error() {
     console.log("Unable to retrieve your location.");
   }
