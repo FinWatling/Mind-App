@@ -2,6 +2,7 @@ import "./App.css";
 import { MainHero } from "./MainHero";
 import { SetPin } from "./SetPin";
 import { MoodRating } from "./MoodRating";
+import MoodEntryList from "./MoodEntryList";
 
 function App() {
   let loggedIn = localStorage.getItem("loggedin") == "true" ? true : false;
@@ -12,6 +13,7 @@ function App() {
       <div className="main-content">
         <MainHero />
         <MoodRating />
+        <MoodEntryList />
       </div>
     );
   } else {

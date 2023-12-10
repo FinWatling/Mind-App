@@ -13,10 +13,6 @@ export const SetPin = () => {
     window.location.reload(true);
   }
 
-  function getPassword() {
-    return password;
-  }
-
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="text-center bg-slate-500 text-slate-200 p-4">

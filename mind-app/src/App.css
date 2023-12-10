@@ -11,10 +11,34 @@
   }
 
   .radio-buttons {
-    @apply text-8xl text-center text-black drop-shadow-lg font-mono h-14 w-16;
+    @apply text-5xl text-center text-black drop-shadow-lg font-mono h-10 w-12;
   }
 
   .submit-button {
     @apply bg-transparent hover:bg-gray-900 text-gray-900 font-semibold hover:text-white py-2 px-4 border hover:border-transparent rounded;
+  }
+
+  body {
+    margin: 0; /* Reset default margin */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* 100% of the viewport height */
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(31, 41, 55);
+  }
+
+  .card {
+    border: 2px solid rgb(31, 41, 55);
+    border-radius: 8px;
+    background-color: rgb(203, 213, 225);
+    padding: 16px;
+    margin: 16px;
+    width: 300px; /* Adjust the width as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 }

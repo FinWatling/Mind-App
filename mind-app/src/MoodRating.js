@@ -13,10 +13,22 @@ export const MoodRating = () => {
   const { encrypt, decrypt } = Encryption();
 
   useEffect(() => {
-    localStorage.setItem(
-      "MoodEntries",
-      encrypt(JSON.stringify(moodEntries), password)
-    );
+    // Get existing data from localStorage
+    const existingData = localStorage.getItem("MoodEntries");
+
+    // If there is existing data, parse it and append the new entry
+    if (existingData) {
+      try {
+        const parsedData = JSON.parse(existingData);
+        const newData = [...parsedData, ...moodEntries];
+        localStorage.setItem("MoodEntries", JSON.stringify(newData));
+      } catch (error) {
+        console.error("Error parsing existing data:", error);
+      }
+    } else {
+      // If no existing data, set the current moodEntries
+      localStorage.setItem("MoodEntries", JSON.stringify(moodEntries));
+    }
   }, [moodEntries]);
 
   useEffect(() => {
@@ -202,12 +214,12 @@ export const MoodRating = () => {
           Password:
         </label>
         <input
-          onchange={onPasswordChange}
+          onChange={onPasswordChange}
           type="password"
           id="password"
         ></input>
         <br></br>
-        <button onClick={onSubmit} className="submit-button">
+        <button onClick={onSubmit} className="submit-button mt-3">
           Submit
         </button>
       </form>
