@@ -1,10 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Encryption } from "./Encryption";
+const { decrypt, encrypt } = Encryption();
 
 const MoodEntryList = (props) => {
   const [dataMap, setDataMap] = useState(new Map());
+  const [pin, setPin] = useState("");
 
   useEffect(() => {
+    setPin(localStorage.getItem("pin").toString());
+    console.log(decrypt(encrypt("123", "123").toString(), "123").toString());
+
     // Step 1: Retrieve JSON data from localStorage
     const jsonData = localStorage.getItem("MoodEntries");
 
@@ -26,10 +32,12 @@ const MoodEntryList = (props) => {
           <div key={key} className="card">
             <h2>{value.datetime}</h2>
             <p>
-              <strong>Mood Rating:</strong> {value.moodrating}
+              <strong>Mood Rating:</strong>{" "}
+              {decrypt(value.moodrating, pin).toString()}
             </p>
             <p>
-              <strong>Mood Notes:</strong> {value.moodnotes}
+              <strong>Mood Notes:</strong>{" "}
+              {decrypt(value.moodnotes, pin).toString()}
             </p>
             <div>
               <strong>Current Weather:</strong>

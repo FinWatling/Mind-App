@@ -10,7 +10,7 @@ export const MoodRating = () => {
   const [moodEntries, setMoodEntries] = useState([]);
 
   const { currentWeather, getCurrentWeather } = Weather();
-  const { encrypt, decrypt } = Encryption();
+  const { encrypt } = Encryption();
 
   useEffect(() => {
     // Get existing data from localStorage
@@ -75,8 +75,8 @@ export const MoodRating = () => {
         : currentWeather?.current?.weather[0]?.description;
 
     const moodEntry = {
-      moodrating: moodSelection,
-      moodnotes: moodNotes,
+      moodrating: encrypt(moodSelection, password).toString(),
+      moodnotes: encrypt(moodNotes, password).toString(),
       datetime: getCurrentDateTime(),
       currentweather: {
         currenttemp: currentTempCelcius,

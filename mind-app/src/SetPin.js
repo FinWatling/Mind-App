@@ -8,8 +8,8 @@ export const SetPin = () => {
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log(password);
     localStorage.setItem("loggedin", true);
+    localStorage.setItem("pin", password);
     window.location.reload(true);
   }
 
