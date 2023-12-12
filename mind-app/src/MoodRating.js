@@ -6,7 +6,6 @@ import { Encryption } from "./Encryption";
 export const MoodRating = () => {
   const [moodSelection, setMoodSelection] = useState(1);
   const [moodNotes, setMoodNotes] = useState("");
-  const [password, setPassword] = useState("");
   const [moodEntries, setMoodEntries] = useState([]);
 
   const { currentWeather, getCurrentWeather } = Weather();
@@ -43,10 +42,6 @@ export const MoodRating = () => {
     setMoodNotes(e.target.value);
   };
 
-  const onPasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
   function getCurrentDateTime() {
     const dateTime = new Date();
     let time =
@@ -64,9 +59,7 @@ export const MoodRating = () => {
     return date + " " + time;
   }
 
-  function onSubmit(e) {
-    e.preventDefault();
-
+  function onSubmit() {
     const currentTempCelcius =
       currentWeather === null ? 0 : currentWeather?.current?.temp - 273.15;
     const currentWeatherDescription =
@@ -75,8 +68,8 @@ export const MoodRating = () => {
         : currentWeather?.current?.weather[0]?.description;
 
     const moodEntry = {
-      moodrating: encrypt(moodSelection, password).toString(),
-      moodnotes: encrypt(moodNotes, password).toString(),
+      moodrating: encrypt(moodSelection, localStorage.getItem("pin")),
+      moodnotes: encrypt(moodNotes, localStorage.getItem("pin")),
       datetime: getCurrentDateTime(),
       currentweather: {
         currenttemp: currentTempCelcius,
@@ -85,6 +78,10 @@ export const MoodRating = () => {
     };
 
     setMoodEntries((moodEntries) => [...moodEntries, moodEntry]);
+  }
+
+  function onLogOut(){
+    localStorage.setItem("loggedin", false)
   }
 
   return (
@@ -210,15 +207,9 @@ export const MoodRating = () => {
           placeholder="How are you feeling?"
         ></textarea>
         <br></br>
-        <label className="" htmlFor="password">
-          Password:
-        </label>
-        <input
-          onChange={onPasswordChange}
-          type="password"
-          id="password"
-        ></input>
-        <br></br>
+        <button onClick={onLogOut} className="submit-button mt-3 mr-3">
+          Log out
+        </button>
         <button onClick={onSubmit} className="submit-button mt-3">
           Submit
         </button>

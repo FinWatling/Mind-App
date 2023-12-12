@@ -8,11 +8,12 @@ const MoodEntryList = (props) => {
   const [pin, setPin] = useState("");
 
   useEffect(() => {
-    setPin(localStorage.getItem("pin").toString());
-    console.log(decrypt(encrypt("123", "123").toString(), "123").toString());
+    setPin(localStorage.getItem("pin"));
 
     // Step 1: Retrieve JSON data from localStorage
     const jsonData = localStorage.getItem("MoodEntries");
+
+
 
     if (jsonData) {
       try {
@@ -28,7 +29,7 @@ const MoodEntryList = (props) => {
   return (
     <div>
       <div className="card-container">
-        {Array.from(dataMap).map(([key, value]) => (
+        {Array.from(dataMap).reverse().map(([key, value]) => (
           <div key={key} className="card">
             <h2>{value.datetime}</h2>
             <p>
@@ -58,7 +59,7 @@ const MoodEntryList = (props) => {
         ))}
       </div>
     </div>
-  );
+  );  
 };
 
 export default MoodEntryList;
