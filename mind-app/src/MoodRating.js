@@ -60,6 +60,9 @@ export const MoodRating = () => {
   }
 
   function onSubmit() {
+
+    if (moodNotes != "") {
+
     const currentTempCelcius =
       currentWeather === null ? 0 : currentWeather?.current?.temp - 273.15;
     const currentWeatherDescription =
@@ -78,6 +81,7 @@ export const MoodRating = () => {
     };
 
     setMoodEntries((moodEntries) => [...moodEntries, moodEntry]);
+  }
   }
 
   function onLogOut(){

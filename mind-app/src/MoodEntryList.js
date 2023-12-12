@@ -27,18 +27,19 @@ const MoodEntryList = (props) => {
   }, []);
 
   return (
-    <div>
+    <div className="bg-gray-800">
       <div className="card-container">
         {Array.from(dataMap).reverse().map(([key, value]) => (
           <div key={key} className="card">
             <h2>{value.datetime}</h2>
             <p>
               <strong>Mood Rating:</strong>{" "}
-              {decrypt(value.moodrating, pin).toString()}
+              {decrypt(value.moodrating, localStorage.getItem("pin"))}
+              {"/10"}
             </p>
             <p>
               <strong>Mood Notes:</strong>{" "}
-              {decrypt(value.moodnotes, pin).toString()}
+              {decrypt(value.moodnotes, localStorage.getItem("pin"))}
             </p>
             <div>
               <strong>Current Weather:</strong>
