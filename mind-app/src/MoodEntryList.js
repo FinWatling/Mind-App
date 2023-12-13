@@ -1,7 +1,6 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Encryption } from "./Encryption";
-const { decrypt, encrypt } = Encryption();
+const { decrypt } = Encryption();
 
 const MoodEntryList = (props) => {
   const [dataMap, setDataMap] = useState(new Map());
@@ -13,8 +12,6 @@ const MoodEntryList = (props) => {
     // Step 1: Retrieve JSON data from localStorage
     const jsonData = localStorage.getItem("MoodEntries");
 
-
-
     if (jsonData) {
       try {
         const dataObject = JSON.parse(jsonData);
@@ -25,6 +22,20 @@ const MoodEntryList = (props) => {
       }
     }
   }, []);
+
+  function onShare(value) {
+    const encryptedMoodRating = value.moodrating;
+    const encryptedMoodNotes = value.moodnotes;
+  
+    const shareData = {
+      title: "Mood Entry",
+      text: `DateTime Info: ${value.datetime} \nEncrypted Mood Rating: ${encryptedMoodRating}\nEncrypted Mood Notes: ${encryptedMoodNotes}\nTemperature: ${Math.round(value.currentweather.currenttemp)}°C\nDescription: ${value.currentweather.currentWeatherDescription}`,
+    };
+  
+    navigator.share(shareData)
+      .then(() => console.log("Shared successfully"))
+      .catch((error) => console.error("Error sharing:", error));
+  }
 
   return (
     <div className="bg-gray-800">
@@ -52,15 +63,18 @@ const MoodEntryList = (props) => {
               </p>
             </div>
             <div>
-              <a href="url" className="underline text-pink-800">
-                Share this mood entry
-              </a>
+              <button
+                onClick={() => onShare(value)}
+                className="submit-button mt-3"
+              >
+                Share
+              </button>
             </div>
           </div>
         ))}
       </div>
     </div>
-  );  
+  );
 };
 
 export default MoodEntryList;
