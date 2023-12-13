@@ -7,7 +7,7 @@
     @apply bg-gray-800 h-screen w-screen;
   }
   .hero {
-    @apply text-8xl text-center content-center text-slate-400 drop-shadow-lg font-mono ml-14;
+    @apply text-8xl text-center content-center text-slate-400 drop-shadow-lg font-mono;
   }
 
   .radio-buttons {
