@@ -32,7 +32,7 @@ export const MoodRating = () => {
 
   useEffect(() => {
     getCurrentWeather();
-  }, [moodEntries]);
+  }, []);
 
   const onMoodChange = (e) => {
     setMoodSelection(e.target.value);
