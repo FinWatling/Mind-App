@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { Encryption } from "./Encryption";
 
 export const SetPin = () => {
-  const { encrypt, decrypt } = Encryption();
-
   const [password, setPassword] = useState(null);
 
   function onSubmit(e) {
+    if (password !== null | ""){
     e.preventDefault();
     localStorage.setItem("loggedin", true);
     localStorage.setItem("pin", password);
+    }
     window.location.reload(true);
   }
 

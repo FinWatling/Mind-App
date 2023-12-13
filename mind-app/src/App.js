@@ -5,7 +5,7 @@ import { MoodRating } from "./MoodRating";
 import MoodEntryList from "./MoodEntryList";
 
 function App() {
-  let loggedIn = localStorage.getItem("loggedin") == "true" ? true : false;
+  let loggedIn = localStorage.getItem("loggedin") === "true" ? true : false;
   let content;
 
   if (loggedIn) {

@@ -61,7 +61,7 @@ export const MoodRating = () => {
 
   function onSubmit() {
 
-    if (moodNotes != "") {
+    if (moodNotes !== "") {
 
     const currentTempCelcius =
       currentWeather === null ? 0 : currentWeather?.current?.temp - 273.15;
@@ -85,7 +85,8 @@ export const MoodRating = () => {
   }
 
   function onLogOut(){
-    localStorage.setItem("loggedin", false)
+    localStorage.setItem("loggedin", false);
+    localStorage.removeItem("pin");
   }
 
   return (

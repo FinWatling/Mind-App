@@ -4,12 +4,8 @@ const { decrypt } = Encryption();
 
 const MoodEntryList = (props) => {
   const [dataMap, setDataMap] = useState(new Map());
-  const [pin, setPin] = useState("");
-
+  
   useEffect(() => {
-    setPin(localStorage.getItem("pin"));
-
-    // Step 1: Retrieve JSON data from localStorage
     const jsonData = localStorage.getItem("MoodEntries");
 
     if (jsonData) {
