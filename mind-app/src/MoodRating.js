@@ -60,31 +60,29 @@ export const MoodRating = () => {
   }
 
   function onSubmit() {
-
     if (moodNotes !== "") {
+      const currentTempCelcius =
+        currentWeather === null ? 0 : currentWeather?.current?.temp - 273.15;
+      const currentWeatherDescription =
+        currentWeather === null
+          ? "No Location Data"
+          : currentWeather?.current?.weather[0]?.description;
 
-    const currentTempCelcius =
-      currentWeather === null ? 0 : currentWeather?.current?.temp - 273.15;
-    const currentWeatherDescription =
-      currentWeather === null
-        ? "No Location Data"
-        : currentWeather?.current?.weather[0]?.description;
+      const moodEntry = {
+        moodrating: encrypt(moodSelection, localStorage.getItem("pin")),
+        moodnotes: encrypt(moodNotes, localStorage.getItem("pin")),
+        datetime: getCurrentDateTime(),
+        currentweather: {
+          currenttemp: currentTempCelcius,
+          currentWeatherDescription: currentWeatherDescription,
+        },
+      };
 
-    const moodEntry = {
-      moodrating: encrypt(moodSelection, localStorage.getItem("pin")),
-      moodnotes: encrypt(moodNotes, localStorage.getItem("pin")),
-      datetime: getCurrentDateTime(),
-      currentweather: {
-        currenttemp: currentTempCelcius,
-        currentWeatherDescription: currentWeatherDescription,
-      },
-    };
-
-    setMoodEntries((moodEntries) => [...moodEntries, moodEntry]);
+      setMoodEntries((moodEntries) => [...moodEntries, moodEntry]);
+    }
   }
-  }
 
-  function onLogOut(){
+  function onLogOut() {
     localStorage.setItem("loggedin", false);
     localStorage.removeItem("pin");
   }
